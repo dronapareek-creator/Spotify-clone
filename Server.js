@@ -9,13 +9,13 @@ async function startServer() {
     try {
         await connectDB();
         app.listen(PORT, "0.0.0.0", () => {
-            console.log(`Server is running on port ${PORT}`)
+            console.log(`Server is running on port ${PORT}`);
         });
 
     }
     catch (error) {
         console.error("Server StartUp failed:", error.message);
-        process.exit(1)
+        process.exit(1);
     }
 }
 startServer();

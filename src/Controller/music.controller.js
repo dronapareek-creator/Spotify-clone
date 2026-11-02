@@ -15,7 +15,6 @@ export async function uploadMusic(req, res) {
             })
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
         if (decoded.role !== "artist") {
             return res.status(403).json({
                 success: false,
@@ -44,8 +43,6 @@ export async function uploadMusic(req, res) {
 
     catch (error) {
         console.error("Upload music error:", error);
-
-
         return res.status(500).json({
             success: false,
             message: "Internal server error",

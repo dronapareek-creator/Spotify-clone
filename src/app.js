@@ -6,7 +6,7 @@ import musicRouter from "./Routes/music.routes.js";
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api/music",musicRouter)
+app.use("/api/music",musicRouter);
 app.use("/api/auth", authRouter);
 
 
