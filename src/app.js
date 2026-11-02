@@ -1,5 +1,5 @@
 import express from "express";
-import authRouter from "./Routes/auth.route.js";
+import authRouter from "./Routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import musicRouter from "./Routes/music.routes.js";
 
