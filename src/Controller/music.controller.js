@@ -1,4 +1,6 @@
 import musicModel from "../models/music.model.js";
+import jwt from "jsonwebtoken"
+
 
 export async function uploadMusic(req, res) {
     try {
@@ -12,7 +14,12 @@ export async function uploadMusic(req, res) {
                 message: "Unauthorized please login first "
             })
         }
-        if (req.user.role !== "artist") {
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET_KEY
+        );
+
+        if (decoded.role !== "artist") {
             return res.status(403).json({
                 success: false,
                 message: "Forbidden only artist can upload music so sad "
@@ -27,8 +34,9 @@ export async function uploadMusic(req, res) {
         }
 
         const newMusic = await musicModel.create({
-            uri, title, artist: req.user.id
+            uri, title, artist: decoded.id
         });
+
         return res.status(201).json({
             success: true,
             message: "Music created Successfully",
