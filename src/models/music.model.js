@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const musicSchema = new mongoose.Schema({
     title: {
@@ -7,13 +7,16 @@ const musicSchema = new mongoose.Schema({
         trim: true
     },
     artist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
 
     },
     uri: {
         type: String,
         required: true
     }
-});
+}, { timestamps: true });
 
 const musicModel = mongoose.model("music", musicSchema);
 export default musicModel;
