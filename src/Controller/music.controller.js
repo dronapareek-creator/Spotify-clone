@@ -14,10 +14,7 @@ export async function uploadMusic(req, res) {
                 message: "Unauthorized please login first "
             })
         }
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET_KEY
-        );
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
         if (decoded.role !== "artist") {
             return res.status(403).json({
