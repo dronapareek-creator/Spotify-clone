@@ -4,6 +4,21 @@ export async function uploadMusic(req, res) {
     try {
         const { uri, title } = req.body;
 
+        const token = req.cookies?.token;
+
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized please login first "
+            })
+        }
+        if (req.user.role !== "artist") {
+            return res.status(403).json({
+                success: false,
+                message: "Forbidden only artist can upload music so sad "
+            })
+        }
+
         if (!uri || !title) {
             return res.status(400).json({
                 success: false,
@@ -12,7 +27,7 @@ export async function uploadMusic(req, res) {
         }
 
         const newMusic = await musicModel.create({
-            uri, title, artist: req.body.artist
+            uri, title, artist: req.user.id
         });
         return res.status(201).json({
             success: true,
